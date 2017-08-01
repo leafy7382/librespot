@@ -36,6 +36,7 @@ enum PlayerCommand {
     Pause,
     Stop,
     Seek(u32),
+    Shutdown,
 }
 
 impl Player {
@@ -91,6 +92,11 @@ impl Player {
     pub fn seek(&self, position_ms: u32) {
         self.command(PlayerCommand::Seek(position_ms));
     }
+
+    pub fn shutdown(&self) {
+        self.command(PlayerCommand::Shutdown);
+    }
+
 }
 
 type Decoder = vorbis::Decoder<Subfile<AudioDecrypt<AudioFile>>>;
@@ -310,6 +316,13 @@ impl PlayerInternal {
                     PlayerState::Invalid => panic!("invalid state"),
                 }
             }
+
+            PlayerCommand::Shutdown => {
+                self.sink.shutdown().unwrap();
+                self.run_onstop();
+                self.state = PlayerState::Stopped;
+            }
+
         }
     }
 
@@ -425,6 +438,9 @@ impl ::std::fmt::Debug for PlayerCommand {
                 f.debug_tuple("Seek")
                  .field(&position)
                  .finish()
+            }
+            PlayerCommand::Shutdown => {
+                f.debug_tuple("Shutdown").finish()
             }
         }
     }

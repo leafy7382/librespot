@@ -313,6 +313,7 @@ impl SpircTask {
                 }
             }
             SpircCommand::Shutdown => {
+                self.player.shutdown();
                 CommandSender::new(self, MessageType::kMessageTypeGoodbye).send();
                 self.shutdown = true;
                 self.commands.close();

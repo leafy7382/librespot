@@ -36,5 +36,9 @@ impl Sink for StdoutSink {
 
         Ok(())
     }
+
+    fn shutdown(&mut self) -> io::Result<()> {
+        Ok(())
+    }
 }
 

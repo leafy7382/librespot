@@ -8,6 +8,7 @@ pub trait Sink {
     fn start(&mut self) -> io::Result<()>;
     fn stop(&mut self) -> io::Result<()>;
     fn write(&mut self, data: &[i16]) -> io::Result<()>;
+    fn shutdown(&mut self) -> io::Result<()>;
 }
 
 fn mk_sink<S: Sink + Open + 'static>(device: Option<String>) -> Box<Sink> {
