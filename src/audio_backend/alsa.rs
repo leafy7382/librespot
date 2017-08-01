@@ -27,7 +27,7 @@ impl Sink for AlsaSink {
     }
 
     fn stop(&mut self) -> io::Result<()> {
-        self.0 = None;
+        //self.0 = None;
         Ok(())
     }
 
