@@ -101,11 +101,6 @@ impl <'a> Sink for PortAudioSink<'a> {
 
         Ok(())
     }
-    fn shutdown(&mut self) -> io::Result<()> {
-        self.0.as_mut().unwrap().stop().unwrap();
-        self.0 = None;
-        Ok(())
-    }
 }
 
 impl <'a> Drop for PortAudioSink<'a> {

@@ -35,10 +35,4 @@ impl Sink for AlsaSink {
         self.0.as_mut().unwrap().write_interleaved(&data).unwrap();
         Ok(())
     }
-
-    fn shutdown(&mut self) -> io::Result<()> {
-        info!("Backend shutdown");
-        self.0 = None;
-        Ok(())
-    }
 }

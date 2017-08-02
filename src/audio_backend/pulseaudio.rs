@@ -20,7 +20,7 @@ impl Open for PulseAudioSink {
             channels: 2, // stereo
             rate: 44100
         };
-
+        
         let name = CString::new("librespot").unwrap();
         let description = CString::new("A spoty client library").unwrap();
 
@@ -37,7 +37,7 @@ impl Open for PulseAudioSink {
             )
         };
         assert!(s != null_mut());
-
+        
         PulseAudioSink(s)
     }
 }
@@ -57,11 +57,7 @@ impl Sink for PulseAudioSink {
             let bytes = data.len() as usize * 2;
             pa_simple_write(self.0, ptr, bytes, null_mut());
         };
-
-        Ok(())
-    }
-
-    fn shutdown(&mut self) -> io::Result<()> {
+        
         Ok(())
     }
 }
